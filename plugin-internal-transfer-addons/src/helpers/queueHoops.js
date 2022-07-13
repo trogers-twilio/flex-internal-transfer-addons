@@ -90,3 +90,125 @@ export const evalHoops = () => {
 
   return newQuery;
 };
+
+export const getClosedQueues = () => {
+  // The HOOP data
+  const theData = manager.store.getState()['internal-transfer-addons'].hoopData.hoopData;
+
+  const formatOptions = {
+    timeZone: theData.timezone,
+    weekday: 'short',
+    hour: 'numeric',
+    hour12: false,
+    month: 'short',
+    day: 'numeric'
+  };
+  const formatter = new Intl.DateTimeFormat('en-US', formatOptions);
+
+  // Get the current time, day of the week, and month/day for agent's time zone
+  const formattedDate = formatter.format(new Date()).split(', ');
+
+  const hour = formattedDate[2];
+  const day = formattedDate[0];
+  const monthDay = formattedDate[1];
+
+  const invalidKeys = ['timezone', 'holidays'];
+
+  const closedQueues = new Map();
+
+  for( const [key, value] of Object.entries(theData)) {
+    if (invalidKeys.includes(key)) {
+      // No need to evaluate open/close hours since this is not a queue
+      continue;
+    }
+    
+    // This means value is object listing days and open/close
+    const queueName = key;
+    const queueSid = value.sid;
+    const queueOpenHour = value[day].open;
+    const queueCloseHour = value[day].close;
+    const queueHolidays = value.holidays;
+
+    const isTodayHoliday = queueHolidays.includes(monthDay);
+
+    const isQueueClosed = isTodayHoliday
+      || hour < queueOpenHour
+      || hour >= queueCloseHour;
+
+    if(isQueueClosed) {
+      console.debug('getClosedQueues, adding queue to closedQueues:', queueSid, queueName);
+      closedQueues.set(queueSid, {
+        queueName,
+        queueOpenHour,
+        queueCloseHour,
+        isTodayHoliday
+      });
+    }
+  }
+
+  return closedQueues;
+};
+
+export const getQueueHoopForToday = (queueSid) => {
+  const hoops = manager.store.getState()['internal-transfer-addons'].hoopData.hoopData;
+
+  const dateFormatOptions = {
+    timeZone: hoops.timezone,
+    timeZoneName: 'short',
+    weekday: 'short',
+    hour: 'numeric',
+    hour12: false,
+    month: 'short',
+    day: 'numeric'
+  };
+  const dateFormatter = new Intl.DateTimeFormat('en-US', dateFormatOptions);
+
+  // Get the current date formatted for defined timezone and split into parts
+  const formattedDateParts = dateFormatter.formatToParts(new Date());
+  console.debug('getQueueHoopForToday, formattedDateParts24H:', formattedDateParts);
+
+  const weekday = formattedDateParts.find(d => d.type === 'weekday')?.value;;
+  const month = formattedDateParts.find(d => d.type === 'month')?.value;
+  const day = formattedDateParts.find(d => d.type === 'day')?.value;
+  const monthDay = `${month} ${day}`;
+  const hour = formattedDateParts.find(d => d.type === 'hour')?.value;
+  const timezoneName = formattedDateParts.find(d => d.type === 'timeZoneName')?.value;
+
+  const queueHoop = hoops[queueSid];
+
+  console.debug('getQueueHoopForToday, queueHoop:', queueHoop);
+
+
+  if (!queueHoop) {
+    // Unable to find matching queue in the HOOP data, so defaulting to not closed
+    return false;
+  }
+
+  const queueName = queueHoop.friendlyName;
+  const queueOpenHour = queueHoop[weekday].open;
+  const queueCloseHour = queueHoop[weekday].close;
+  const queueHolidays = queueHoop.holidays;
+
+  console.debug('getQueueHoopForToday, queueOpenHour:', queueOpenHour);
+  console.debug('getQueueHoopForToday, queueCloseHour:', queueCloseHour);
+
+  const isTodayHoliday = Array.isArray(queueHolidays) && queueHolidays.includes(monthDay);
+
+  const isQueueClosed = isTodayHoliday
+    || hour < queueOpenHour
+    || hour >= queueCloseHour
+
+  const openHourDayPeriod = queueOpenHour < 12 ? 'AM' : 'PM';
+  const closeHourDayPeriod = queueCloseHour < 12 ? 'AM' : 'PM';
+  const formattedOpenHour = `${queueOpenHour <= 12 ? queueOpenHour : queueOpenHour - 12}:00 ${openHourDayPeriod}`;
+  const formattedCloseHour = `${queueCloseHour <= 12 ? queueCloseHour : queueCloseHour - 12}:00 ${closeHourDayPeriod}`;
+
+  return {
+    queueName,
+    queueOpenHour: formattedOpenHour,
+    queueCloseHour: formattedCloseHour,
+    timezoneName,
+    isQueueClosed,
+    isTodayHoliday
+  };
+}

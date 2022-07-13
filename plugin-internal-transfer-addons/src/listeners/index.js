@@ -1,10 +1,12 @@
-import { Actions, WorkerDirectoryTabs } from '@twilio/flex-ui';
+import { Actions, Manager, Notifications, WorkerDirectoryTabs } from '@twilio/flex-ui';
 
-import { transferQueues } from '../helpers'
+import { transferQueues, queueHoops } from '../helpers'
 import TaskRouterService from '../services/TaskRouterService';
+import { FlexNotification } from '../enums';
 
+const manager = Manager.getInstance();
 
-const initialize = () => {
+export const initializeListeners = () => {
   Actions.addListener("beforeShowDirectory", (payload) => {
     // This logic is for filtering out queues that are not eligible for
     // transfer from the queue transfer directory
@@ -13,7 +15,37 @@ const initialize = () => {
     WorkerDirectoryTabs.defaultProps.hiddenQueueFilter = queueFilterExpression;
   });
 
-  Actions.addListener("beforeTransferTask", async (payload) => {
+  Actions.addListener("beforeTransferTask", async (payload, abortAction) => {
+    console.debug('beforeTransferTask, payload:', payload);
+    const isHoopsEnabled = manager.serviceConfiguration.ui_attributes?.internalTransferAddonsPlugin?.isHoopsEnabled;
+
+    const taskQueueSidPrefix = 'WQ';
+    const isQueueTarget = payload.targetSid?.toUpperCase().startsWith(taskQueueSidPrefix);
+
+    console.debug('beforeTransferTask, isHoopsEnabled:', isHoopsEnabled);
+    console.debug('beforeTransferTask, isQueueTarget:', isQueueTarget);
+
+    if (isHoopsEnabled && isQueueTarget) {
+      const queueHoopToday = queueHoops.getQueueHoopForToday(payload.targetSid);
+      console.debug('beforeTransferTask, targetSid:', payload.targetSid);
+      console.debug('beforeTransferTask, queueHoopToday:', queueHoopToday);
+
+      if (queueHoopToday.isQueueClosed) {
+        const { queueName, queueOpenHour, queueCloseHour, timezoneName } = queueHoopToday;
+        const notificationPayload = {
+          queueName,
+          queueOpenHour,
+          queueCloseHour,
+          timezoneName
+        }
+        const notificationId = queueHoopToday.isTodayHoliday
+          ? FlexNotification.transferQueueHoliday
+          : FlexNotification.transferQueueClosed;
+
+        Notifications.showNotification(notificationId, notificationPayload);
+        abortAction();
+      }
+    }
 
     try{
       // This logic is added to ensure the task is set to the same priority as
@@ -53,7 +85,3 @@ const initialize = () => {
     }
   });
 }
-
-export default {
-  initialize
-};

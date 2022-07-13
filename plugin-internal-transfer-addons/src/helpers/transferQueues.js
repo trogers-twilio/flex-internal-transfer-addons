@@ -35,12 +35,12 @@ export const getQueueFilterExpression = () => {
 
   let finalQueueFilterExpression = `(${staticQueueFilterExpression})`;
 
-  const isHoopsEnabled = manager.serviceConfiguration.ui_attributes?.internalTransferAddonsPlugin?.isHoopsEnabled;
+  // const isHoopsEnabled = manager.serviceConfiguration.ui_attributes?.internalTransferAddonsPlugin?.isHoopsEnabled;
 
-  if (isHoopsEnabled) {
-    const queueHoopsFilterExpression = queueHoops.evalHoops();
-    finalQueueFilterExpression += ` AND (${queueHoopsFilterExpression})`;
-  }
+  // if (isHoopsEnabled) {
+  //   const queueHoopsFilterExpression = queueHoops.evalHoops();
+  //   finalQueueFilterExpression += ` AND (${queueHoopsFilterExpression})`;
+  // }
 
   return finalQueueFilterExpression;
 }

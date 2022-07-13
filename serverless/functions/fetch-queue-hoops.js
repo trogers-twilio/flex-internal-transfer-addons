@@ -29,18 +29,31 @@ exports.handler = TokenValidator(function(context, event, callback) {
     .list()
     .then(taskQueues => {
       console.timeEnd(queueFetchTimer);
+      console.log(`Fetched ${taskQueues.length} TaskQueues`);
+
       const hoopCalcTimer = 'HOOPs calculated in';
       console.time(hoopCalcTimer);
-      taskQueues.forEach(t => {
-        const daysHours = findFor(t.friendlyName, basicHoops);
-        newData[t.friendlyName] = daysHours;
-      });
+
+      for (const queue of taskQueues) {
+        const daysHours = findFor(queue.friendlyName, basicHoops);
+        newData[queue.sid] = {
+          ...daysHours,
+          friendlyName: queue.friendlyName
+        };
+      }
+      // taskQueues.forEach(t => {
+      //   console.log('Processing', t.sid);
+      //   const daysHours = findFor(t.friendlyName, basicHoops);
+      //   newData[t.friendlyName] = daysHours;
+      //   newData[t.friendlyName].sid = t.sid;
+      // });
       
       // Update the rest of the response.
       response.appendHeader('Content-Type', 'application/json');
       response.setBody(newData);
 
       console.timeEnd(hoopCalcTimer);
+      console.log(`HOOPs calculated for ${Object.keys(newData).filter(k => k !== 'timezone').length} TaskQueues`);
 
       callback(null, response);
     })
@@ -68,7 +81,10 @@ const findFor = (rawQueueName = String, theHoops = {}) => {
         // to anything inside queueName like "baas gbr lost stolen t1 en"
         // Adding space before/after key to avoid partial match in a longer word
         if(queueName.indexOf(` ${subKey} `) != -1) {
-          return subValue;
+          return {
+            ...subValue,
+            matchedHoop: `${rawKey}.${rawSubKey}`
+          };
         }
       }
     }
@@ -82,10 +98,16 @@ const findFor = (rawQueueName = String, theHoops = {}) => {
     // to anything inside queueName like "baas gbr lost stolen t1 en"
     // Adding space before/after key to avoid partial match in a longer word
     if(queueName.indexOf(` ${key} `) != -1) {
-      return value;
+      return {
+        ...value,
+        matchedHoop: `global.${rawKey}`
+      }
     }
   }
 
   // Have to returrn SOMETHING, so we use the global global values
-  return theHoops.global.global;
+  return {
+    ...theHoops.global.global,
+    matchedHoop: 'global.global'
+  }
 }
