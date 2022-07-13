@@ -8,6 +8,7 @@ import { queueHoops } from './helpers';
 import { initializeListeners } from './listeners';
 import TaskRouterService from './services/TaskRouterService';
 import { registerNotifications } from './notifications';
+import { initializeStrings } from './strings';
 
 
 const PLUGIN_NAME = 'InternalTransferAddonsPlugin';
@@ -27,6 +28,8 @@ export default class InternalTransferAddonsPlugin extends FlexPlugin {
   async init(flex, manager) {
     this.registerReducers(manager);
 
+    initializeStrings();
+    
     initializeListeners();
 
     registerNotifications();
