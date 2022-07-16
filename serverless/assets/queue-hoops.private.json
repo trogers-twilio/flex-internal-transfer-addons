@@ -3,568 +3,67 @@
   "global":{
     "global":{
       "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
       ],
       "Mon":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Tue":{
-        "open":18,
-        "close":23
+        "open":0,
+        "close":24
       },
       "Wed":{
-        "open":17,
-        "close":23
+        "open":0,
+        "close":24
       },
       "Thu":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Fri":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Sat":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Sun":{
         "open":0,
-        "close":23
+        "close":24
       }
     },
-    "walmart":{
+    "kabbage":{
       "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
+        "Jul 16"
       ],
       "Mon":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Tue":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Wed":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Thu":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Fri":{
         "open":0,
-        "close":23
+        "close":24
       },
       "Sat":{
-        "open":0,
-        "close":23
+        "open":8,
+        "close":20
       },
       "Sun":{
         "open":0,
-        "close":23
-      }
-    },
-    "dispute":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "fraud block":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "lm":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "lost stolen":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "support":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    }
-  },
-  "baas gbr":{
-    "dispute":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "lm":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "lost stolen":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "support":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    }
-  },
-  "baas intuit":{
-    "transfer qb":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "transfer tc":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "dispute":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "lost stolen":{
-      "holidays":[
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
-      }
-    },
-    "support":{
-      "holidays":[
-        "Apr 4",
-        "Apr 5",
-        "Dec 25",
-        "Apr 15",
-        "Jan 1"
-      ],
-      "Mon":{
-        "open":0,
-        "close":23
-      },
-      "Tue":{
-        "open":0,
-        "close":23
-      },
-      "Wed":{
-        "open":0,
-        "close":23
-      },
-      "Thu":{
-        "open":0,
-        "close":23
-      },
-      "Fri":{
-        "open":0,
-        "close":23
-      },
-      "Sat":{
-        "open":0,
-        "close":23
-      },
-      "Sun":{
-        "open":0,
-        "close":23
+        "close":24
       }
     }
   }
