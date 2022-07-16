@@ -73,14 +73,15 @@ const findFor = (rawQueueName = String, theHoops = {}) => {
 
     // Want to match queueName like "baas gbr lost stolen t1 en"
     // to a key like "baas gbr" to get started
-    if(queueName.startsWith(key)) {
+    if(queueName.startsWith(`${key} `)) {
       for(const[rawSubKey, subValue] of Object.entries(value)) {
         let subKey = rawSubKey.toLowerCase();
         
         // Want to match a subKey like "lost stolen"
         // to anything inside queueName like "baas gbr lost stolen t1 en"
         // Adding space before/after key to avoid partial match in a longer word
-        if(queueName.indexOf(` ${subKey} `) != -1) {
+        if(queueName.includes(` ${subKey} `) ||
+          queueName.endsWith(` ${subKey}`)) {
           return {
             ...subValue,
             matchedHoop: `${rawKey}.${rawSubKey}`
@@ -97,7 +98,10 @@ const findFor = (rawQueueName = String, theHoops = {}) => {
     // Want to match a key like "lost stolen"
     // to anything inside queueName like "baas gbr lost stolen t1 en"
     // Adding space before/after key to avoid partial match in a longer word
-    if(queueName.indexOf(` ${key} `) != -1) {
+    if(queueName.startsWith(`${key} `) ||
+      queueName.includes(` ${key} `) ||
+      queueName.endsWith(` ${key}`) || 
+      queueName === key) {
       return {
         ...value,
         matchedHoop: `global.${rawKey}`
@@ -105,7 +109,7 @@ const findFor = (rawQueueName = String, theHoops = {}) => {
     }
   }
 
-  // Have to returrn SOMETHING, so we use the global global values
+  // Have to return SOMETHING, so we use the global global values
   return {
     ...theHoops.global.global,
     matchedHoop: 'global.global'
