@@ -43,7 +43,6 @@ exports.handler = TokenValidator(async function (context, event, callback) {
 
   try {
     const result = await getWorkflows(context, 0);
-    console.log('test cheryl');
     const { success, workflows: workflowData, message, status } = result;
     const workflows = workflowData? workflowData.map(workflow => {
       const { sid, configuration } = workflow ;
