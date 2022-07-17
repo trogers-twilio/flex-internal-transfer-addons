@@ -12,25 +12,23 @@ export const initializeListeners = () => {
     // transfer from the queue transfer directory
     const queueFilterExpression = transferQueues.getQueueFilterExpression();
     console.debug('queueFilterExpression:', queueFilterExpression);
-    WorkerDirectoryTabs.defaultProps.hiddenQueueFilter = queueFilterExpression;
+    
+    if (queueFilterExpression) {
+      WorkerDirectoryTabs.defaultProps.hiddenQueueFilter = queueFilterExpression;
+    }
   });
 
   Actions.addListener("beforeTransferTask", async (payload, abortAction) => {
-    console.debug('beforeTransferTask, payload:', payload);
     const isHoopsEnabled = manager.serviceConfiguration.ui_attributes?.internalTransferAddonsPlugin?.isHoopsEnabled;
 
     const taskQueueSidPrefix = 'WQ';
     const isQueueTarget = payload.targetSid?.toUpperCase().startsWith(taskQueueSidPrefix);
 
-    console.debug('beforeTransferTask, isHoopsEnabled:', isHoopsEnabled);
-    console.debug('beforeTransferTask, isQueueTarget:', isQueueTarget);
-
     if (isHoopsEnabled && isQueueTarget) {
       const queueHoopToday = queueHoops.getQueueHoopForToday(payload.targetSid);
-      console.debug('beforeTransferTask, targetSid:', payload.targetSid);
-      console.debug('beforeTransferTask, queueHoopToday:', queueHoopToday);
 
       if (queueHoopToday.isQueueClosed) {
+        console.log('Target transfer queue is closed. Aborting transfer.', queueHoopToday);
         const { queueName, queueOpenHour, queueCloseHour, timezoneName } = queueHoopToday;
         const notificationPayload = {
           queueName,
