@@ -1,6 +1,6 @@
 import { Manager } from '@twilio/flex-ui';
 
-import { queueHoops, utils } from '../helpers';
+import { utils } from '../helpers';
 
 const manager = Manager.getInstance();
 
@@ -33,14 +33,9 @@ const generateStaticQueueFilterExpression = () => {
 export const getQueueFilterExpression = () => {
   const staticQueueFilterExpression = generateStaticQueueFilterExpression();
 
-  let finalQueueFilterExpression = `(${staticQueueFilterExpression})`;
-
-  // const isHoopsEnabled = manager.serviceConfiguration.ui_attributes?.internalTransferAddonsPlugin?.isHoopsEnabled;
-
-  // if (isHoopsEnabled) {
-  //   const queueHoopsFilterExpression = queueHoops.evalHoops();
-  //   finalQueueFilterExpression += ` AND (${queueHoopsFilterExpression})`;
-  // }
+  let finalQueueFilterExpression = staticQueueFilterExpression
+    ? `(${staticQueueFilterExpression})`
+    : ''
 
   return finalQueueFilterExpression;
 }
