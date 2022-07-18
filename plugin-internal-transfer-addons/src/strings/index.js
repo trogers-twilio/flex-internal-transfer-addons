@@ -5,7 +5,7 @@ import { queueHoops }  from '../helpers';
 const manager = Manager.getInstance();
 
 const registerHandlebarsHelpers = () => {
-  window.Handlebars.registerHelper('WorkerDirectoryIsQueueClosed', function (payload, options) {
+  window.Handlebars.registerHelper('IsWorkerDirectoryQueueClosed', function (payload, options) {
     const queueSid = payload?.sid
     const fnTrue = options?.fn;
     const fnFalse = options?.inverse;
@@ -44,7 +44,7 @@ export const initializeStrings = () => {
     const closedStyle = 'color:maroon';
 
     manager.strings.WorkerDirectoryQueueItemText = `
-      {{#WorkerDirectoryIsQueueClosed queue}}
+      {{#IsWorkerDirectoryQueueClosed queue}}
         <div>{{queue.name}}</div>
         <div>
           <span style=${closedStyle}>CLOSED </span>
@@ -55,7 +55,7 @@ export const initializeStrings = () => {
         </div>
       {{else}}
         {{queue.name}}
-      {{/WorkerDirectoryIsQueueClosed}}
+      {{/IsWorkerDirectoryQueueClosed}}
     `;
   }
 };
