@@ -69,40 +69,76 @@ export const getQueueHoopForToday = (queueSid) => {
 
   const queueName = queueHoop.friendlyName;
   const matchedHoop = queueHoop.matchedHoop;
-  const queueOpenHour = queueHoop[weekday].open;
-  const queueCloseHour = queueHoop[weekday].close;
+  const queueOpenHour = queueHoop[weekday]?.open;
+  const queueCloseHour = queueHoop[weekday]?.close;
   const queueHolidays = queueHoop.holidays;
 
   const isTodayHoliday = Array.isArray(queueHolidays) && queueHolidays.includes(monthDay);
 
-  const isQueueClosed = isTodayHoliday
-    || hour < queueOpenHour
-    || hour >= queueCloseHour
+  const isQueueClosed = (
+    isTodayHoliday ||
+    queueOpenHour === undefined ||
+    queueCloseHour === undefined ||
+    hour < queueOpenHour ||
+    hour >= queueCloseHour
+  );
+
+  const getDayPeriodForHour = (hourToEvaluate) => {
+    return hourToEvaluate === 24
+      ? 'AM'
+      : hourToEvaluate < 12
+        ? 'AM'
+        : 'PM';
+  }
 
   const formatHour = (hourToFormat) => {
-    return hourToFormat === 0
-      ? 12
-      : hourToFormat > 12
-        ? hourToFormat - 12
-        : hourToFormat;
+    const convertedHour = (hourToFormat === 0 || hourToFormat === 24)
+    ? 12
+    : hourToFormat > 12
+      ? hourToFormat - 12
+      : hourToFormat;
+
+    return `${convertedHour} ${getDayPeriodForHour(hourToFormat)}`;
   };
 
-  const openHourDayPeriod = queueOpenHour < 12 ? 'AM' : 'PM';
-  const closeHourDayPeriod = queueCloseHour < 12 ? 'AM' : 'PM';
-  const formattedOpenHour = `${formatHour(queueOpenHour)}:00 ${openHourDayPeriod}`;
-  const formattedCloseHour = `${formatHour(queueCloseHour)}:00 ${closeHourDayPeriod}`;
-  const shortOpenHour = `${formatHour(queueOpenHour)} ${openHourDayPeriod}`;
-  const shortCloseHour = `${formatHour(queueCloseHour)} ${closeHourDayPeriod}`;
+  const daysOfWeek = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun'
+  ];
+  let queueHours = '';
+  for (const day of daysOfWeek) {
+    const dayHoop = queueHoop[day];
+    const dayOpenHour = dayHoop?.open;
+    const dayCloseHour = dayHoop?.close;
+
+    if (!dayHoop ||
+      dayOpenHour === undefined ||
+      dayCloseHour === undefined
+    ) {
+      queueHours += `${day}: CLOSED\n`;
+      continue;
+    }
+
+    const dayHours = (dayOpenHour === 0 && dayCloseHour === 24)
+      ? 'Open All Day'
+      : `${formatHour(dayOpenHour)} - ${formatHour(dayCloseHour)} ${timezoneName}`;
+
+    queueHours += `${day}: ${dayHours}\n`;
+  }
+  // Removing trailing line feed
+  queueHours = queueHours.replace(/\n*$/, '');
+  console.debug('getQueueHoopForToday, queueHours:', queueHours);
 
   return {
     matchedHoop,
     queueName,
     queueSid,
-    queueOpenHour: formattedOpenHour,
-    queueCloseHour: formattedCloseHour,
-    shortOpenHour,
-    shortCloseHour,
-    timezoneName,
+    queueHours,
     isQueueClosed,
     isTodayHoliday
   };

@@ -29,12 +29,10 @@ export const initializeListeners = () => {
 
       if (queueHoopToday.isQueueClosed) {
         console.log('Target transfer queue is closed. Aborting transfer.', queueHoopToday);
-        const { queueName, queueOpenHour, queueCloseHour, timezoneName } = queueHoopToday;
+        const { queueName, queueHours } = queueHoopToday;
         const notificationPayload = {
           queueName,
-          queueOpenHour,
-          queueCloseHour,
-          timezoneName
+          queueHours
         }
         const notificationId = queueHoopToday.isTodayHoliday
           ? FlexNotification.transferQueueHoliday

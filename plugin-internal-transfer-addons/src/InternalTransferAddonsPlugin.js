@@ -4,7 +4,7 @@ import { FlexPlugin } from '@twilio/flex-plugin';
 
 import reducers, { namespace } from './states';
 import { Actions as HoopDataActions} from './states/HoopDataState';
-import { queueHoops } from './helpers';
+import { handlebars, queueHoops } from './helpers';
 import { initializeListeners } from './listeners';
 import TaskRouterService from './services/TaskRouterService';
 import { registerNotifications } from './notifications';
@@ -33,6 +33,8 @@ export default class InternalTransferAddonsPlugin extends FlexPlugin {
     initializeListeners();
 
     registerNotifications();
+
+    handlebars.registerHelpers();
 
     queueHoops.loadHoops(HoopDataActions.storeHoops);
 

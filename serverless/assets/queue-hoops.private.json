@@ -33,35 +33,27 @@
         "close":24
       }
     },
-    "kabbage":{
+    "inbound":{
       "holidays":[
-        "Jul 16"
+        "Jul 4"
       ],
       "Mon":{
-        "open":6,
-        "close":17
+        "open":17,
+        "close":21
       },
       "Tue":{
         "open":0,
         "close":24
       },
       "Wed":{
-        "open":0,
-        "close":24
+        "open":5,
+        "close":21
       },
       "Thu":{
-        "open":0,
-        "close":24
+        "open":5,
+        "close":21
       },
       "Fri":{
-        "open":0,
-        "close":24
-      },
-      "Sat":{
-        "open":8,
-        "close":20
-      },
-      "Sun":{
         "open":0,
         "close":24
       }
