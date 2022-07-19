@@ -6,6 +6,9 @@ import { FlexNotification } from '../enums';
 const manager = Manager.getInstance();
 
 export const registerNotifications = () => {
+  // These notifications let the user know the queue they're trying to
+  // transfer to is currently closed, along with the hours of operation
+  // for the target queue
   manager.strings[FlexNotification.transferQueueClosed] = (`
     Queue [{{queueName}}] is closed. Queue hours are:
     <hr>

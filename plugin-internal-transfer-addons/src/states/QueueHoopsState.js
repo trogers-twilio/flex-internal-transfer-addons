@@ -1,21 +1,20 @@
-const ACTION_STORE_HOOPS = 'STORE_HOOPS';
+const ACTION_STORE_QUEUE_HOOPS = 'STORE_QUEUE_HOOPS';
 
 const initialState = {
-  hoopData: {}
 };
 
 export class Actions {
-  static storeHoops = (hoopData) => {
-    return ({ type: ACTION_STORE_HOOPS, payload: hoopData })};
+  static storeQueueHoops = (queueHoops) => {
+    return ({ type: ACTION_STORE_QUEUE_HOOPS, payload: queueHoops })};
 }
 
 export function reduce(state = initialState, action) {
   // eslint-disable-next-line sonarjs/no-small-switch
   switch (action.type) {
-    case ACTION_STORE_HOOPS: {
+    case ACTION_STORE_QUEUE_HOOPS: {
       return {
         ...state,
-        hoopData: action.payload
+        ...action.payload
       };
     }
 

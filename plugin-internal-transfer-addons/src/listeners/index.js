@@ -65,7 +65,7 @@ export const initializeListeners = () => {
             queuePriority = filters.targets[0].priority;
 
             // Ensuring the highest possible priority found for this TaskQueue is
-            // used to it doesn't get stuck behind new tasks in the target queue
+            // used so it doesn't get stuck behind new tasks in the target queue
             targetQueuePriority = queuePriority > targetQueuePriority ? queuePriority : targetQueuePriority;
           }
         })  

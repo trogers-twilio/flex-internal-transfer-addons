@@ -33,6 +33,8 @@ const generateStaticQueueFilterExpression = () => {
 export const getQueueFilterExpression = () => {
   const staticQueueFilterExpression = generateStaticQueueFilterExpression();
 
+  // Setting to an empty string if the status queue filter expression is null
+  // in case other filter expressions need to be appended in the future
   let finalQueueFilterExpression = staticQueueFilterExpression
     ? `(${staticQueueFilterExpression})`
     : ''

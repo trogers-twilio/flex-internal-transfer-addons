@@ -3,7 +3,7 @@ import { VERSION } from '@twilio/flex-ui';
 import { FlexPlugin } from '@twilio/flex-plugin';
 
 import reducers, { namespace } from './states';
-import { Actions as HoopDataActions} from './states/HoopDataState';
+import { Actions as QueueHoopsActions} from './states/QueueHoopsState';
 import { handlebars, queueHoops } from './helpers';
 import { initializeListeners } from './listeners';
 import TaskRouterService from './services/TaskRouterService';
@@ -36,7 +36,7 @@ export default class InternalTransferAddonsPlugin extends FlexPlugin {
 
     handlebars.registerHelpers();
 
-    queueHoops.loadHoops(HoopDataActions.storeHoops);
+    queueHoops.loadHoops(QueueHoopsActions.storeQueueHoops);
 
     TaskRouterService.getWorkflows()
       .then(console.log('Workflows were retrieved'));

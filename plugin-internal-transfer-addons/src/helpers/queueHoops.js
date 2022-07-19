@@ -1,4 +1,6 @@
 import { Manager } from '@twilio/flex-ui';
+ 
+import { DaysOfWeek } from '../enums';
 
 const manager = Manager.getInstance();
 
@@ -34,7 +36,7 @@ export const loadHoops = (storeHoopsAction) => {
 };
 
 export const getQueueHoopForToday = (queueSid) => {
-  const hoops = manager.store.getState()['internal-transfer-addons']?.hoopData?.hoopData;
+  const hoops = manager.store.getState()['internal-transfer-addons']?.queueHoops;
 
   if (!hoops) {
     return;
@@ -67,14 +69,19 @@ export const getQueueHoopForToday = (queueSid) => {
   const hour = formattedDateParts.find(d => d.type === 'hour')?.value;
   const timezoneName = formattedDateParts.find(d => d.type === 'timeZoneName')?.value;
 
-  const queueName = queueHoop.friendlyName;
+  // matchedHoop is only for debugging purposes, so it's easy to see which HOOP was
+  // matched in the master JSON file
   const matchedHoop = queueHoop.matchedHoop;
+  const queueName = queueHoop.friendlyName;
   const queueOpenHour = queueHoop[weekday]?.open;
   const queueCloseHour = queueHoop[weekday]?.close;
   const queueHolidays = queueHoop.holidays;
 
   const isTodayHoliday = Array.isArray(queueHolidays) && queueHolidays.includes(monthDay);
 
+  // Including a check for undefined open or close hours and assuming closed if
+  // either is missing to prevent calls from possibly being transferred to a closed
+  // queue due to a missed configuration
   const isQueueClosed = (
     isTodayHoliday ||
     queueOpenHour === undefined ||
@@ -101,17 +108,8 @@ export const getQueueHoopForToday = (queueSid) => {
     return `${convertedHour} ${getDayPeriodForHour(hourToFormat)}`;
   };
 
-  const daysOfWeek = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun'
-  ];
   let queueHours = '';
-  for (const day of daysOfWeek) {
+  for (const day of DaysOfWeek) {
     const dayHoop = queueHoop[day];
     const dayOpenHour = dayHoop?.open;
     const dayCloseHour = dayHoop?.close;
@@ -130,9 +128,8 @@ export const getQueueHoopForToday = (queueSid) => {
 
     queueHours += `${day}: ${dayHours}\n`;
   }
-  // Removing trailing line feed
+  // Removing trailing line feed to avoid an extra empty line at end of string
   queueHours = queueHours.replace(/\n*$/, '');
-  console.debug('getQueueHoopForToday, queueHours:', queueHours);
 
   return {
     matchedHoop,

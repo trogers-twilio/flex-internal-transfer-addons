@@ -33,17 +33,16 @@
         "close":24
       }
     },
-    "inbound":{
+    "corpres":{
       "holidays":[
-        "Jul 4"
       ],
       "Mon":{
-        "open":17,
+        "open":5,
         "close":21
       },
       "Tue":{
-        "open":0,
-        "close":24
+        "open":4,
+        "close":21
       },
       "Wed":{
         "open":5,
@@ -54,8 +53,59 @@
         "close":21
       },
       "Fri":{
-        "open":0,
-        "close":24
+        "open":5,
+        "close":21
+      }
+    }
+  },
+  "corpres":{
+    "apple": {
+      "holidays":[
+        "Jul 19"
+      ],
+      "Mon":{
+        "open":5,
+        "close":16
+      },
+      "Tue":{
+        "open":5,
+        "close":16
+      },
+      "Wed":{
+        "open":5,
+        "close":16
+      },
+      "Thu":{
+        "open":5,
+        "close":16
+      },
+      "Fri":{
+        "open":5,
+        "close":16
+      }
+    },
+    "rapid": {
+      "holidays":[
+      ],
+      "Mon":{
+        "open":5,
+        "close":16
+      },
+      "Tue":{
+        "open":5,
+        "close":16
+      },
+      "Wed":{
+        "open":5,
+        "close":16
+      },
+      "Thu":{
+        "open":5,
+        "close":16
+      },
+      "Fri":{
+        "open":5,
+        "close":16
       }
     }
   }
