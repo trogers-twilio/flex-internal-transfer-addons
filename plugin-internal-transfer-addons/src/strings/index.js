@@ -10,7 +10,7 @@ export const initializeStrings = () => {
 
     manager.strings.WorkerDirectoryQueueItemText = `
       {{#IsWorkerDirectoryQueueClosed queue}}
-        <div>{{queue.name}}</div>
+        <div title="{{queueHours}}">{{queue.name}}</div>
         <div title="{{queueHours}}">
           <span style=${closedStyle}>CLOSED </span>
           {{#if isTodayHoliday}}
