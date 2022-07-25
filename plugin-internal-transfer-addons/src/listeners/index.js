@@ -72,7 +72,9 @@ export const initializeListeners = () => {
       }
 
       if (targetQueuePriority !== 0) {
-        console.debug('beforeTransferTask, Setting task priority to target queue priority', targetQueuePriority);
+        console.debug('beforeTransferTask, task priority will be set to',
+          `target queue priority ${targetQueuePriority} on transfer`
+        );
         payload.options.priority = targetQueuePriority;
       }
     }

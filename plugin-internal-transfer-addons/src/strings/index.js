@@ -21,7 +21,7 @@ export const initializeStrings = () => {
           {{#if isTodayHoliday}}
             <span style=${closedStyle}>Holiday </span>
           {{/if}}
-          <span>(Hover here to see hours)</span>
+          <span>(Hover for hours)</span>
         </div>
       {{else}}
         {{queue.name}}
