@@ -53,7 +53,7 @@ export const getQueueHoopForToday = (queueSid) => {
     timeZoneName: 'short',
     weekday: 'short',
     hour: 'numeric',
-    hour12: false,
+    hourCycle: 'h23',
     month: 'short',
     day: 'numeric'
   };
