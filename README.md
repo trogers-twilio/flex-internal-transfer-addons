@@ -346,6 +346,40 @@ Now let's say there is a queue called "Computers After Hours Support" that shoul
 
 By prefixing "After Hours" with "!", any queues that made it into the matched queue list via "Computers" will be removed from the list if they contain "After Hours" in their name.
 
+If there are multiple matches of the object key to the queue name, then the key with the most characters will be the one used. This allows for easily overriding the "higher level" config for a specific queue.
+
+For example, let's say we have multiple queues for the "Computers" line of business, such as "Computers Sales", "Computers Support", "Computers Escalation", and "Computers Apparel". In this example, the "Computers Apparel" queue provides support for the "Shoes" and "Hats" lines of business, so we want it to have access to transfer to those queues and vice versa, but the other "Computers" queues should still only be able to transfer to other "Computers" queues only. The configuration would look like this:
+
+```json
+"internalTransferAddonsPlugin": {
+  ...,
+  "lobTransferQueueFilter": {
+    "Shoes": [
+      "Shoes",
+      "Computers Apparel"
+    ],
+    "Computers": [
+      "Computers"
+      "!After Hours"
+    ],
+    "Computers Apparel": [
+      "Computers",
+      "Hats",
+      "Shoes",
+      "!After Hours"
+    ],
+    "Hats": [
+      "Hats",
+      "Computers Apparel"
+    ],
+    "Apparel Support": [
+      "Shoes",
+      "Hats"
+    ]
+  }
+}
+```
+
 Keep in mind the object key is used in a `startsWith()` condition, so it will only match queues whose name begins with that key. The strings in the array value, however, can exist anywhere in the queue name.
 
 This filter works in tandem with the TaskChannel name filter described below. If both filters are configured, queue names have to match both filter criteria to be visible in transfer directory.
